@@ -1,0 +1,23 @@
+name: Kestra CI/CD
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: Kestra validate
+    steps:
+      - name: Checkout repo content
+        uses: actions/checkout@v4
+
+      - name: Validate all flows on server-side
+        uses: kestra-io/validate-action@master
+        with:
+          directory: ./kestra/flows
+          resource: flow
+          server: https://6041-38-242-180-137.ngrok-free.app
+
+  
